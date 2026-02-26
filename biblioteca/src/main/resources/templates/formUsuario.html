@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<div th:replace="layout :: layout">
+
+    <div th:fragment="conteudo">
+
+        <h2>Novo Usuário</h2>
+
+        <form th:action="@{/usuarios}" th:object="${usuario}" method="post">
+
+            <div class="mb-3">
+                <label>Nome</label>
+                <input type="text" th:field="*{nome}" class="form-control"/>
+            </div>
+
+            <button type="submit" class="btn btn-success">Salvar</button>
+            <a th:href="@{/usuarios}" class="btn btn-secondary">Voltar</a>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

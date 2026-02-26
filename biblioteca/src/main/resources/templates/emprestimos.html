@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<div th:replace="layout :: layout">
+
+    <div th:fragment="conteudo">
+
+        <h2>Lista de Empréstimos</h2>
+
+        <a th:href="@{/emprestimos/novo}" class="btn btn-primary mb-3">Novo Empréstimo</a>
+
+        <table class="table table-bordered">
+            <thead class="table-dark">
+            <tr>
+                <th>Livro</th>
+                <th>Usuário</th>
+                <th>Data</th>
+                <th>Ativo</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="emp : ${emprestimos}">
+                <td th:text="${emp.livro.titulo}"></td>
+                <td th:text="${emp.usuario.nome}"></td>
+                <td th:text="${emp.dataEmprestimo}"></td>
+                <td>
+                    <span th:if="${emp.ativo}" class="badge bg-success">Sim</span>
+                    <span th:unless="${emp.ativo}" class="badge bg-danger">Não</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>
