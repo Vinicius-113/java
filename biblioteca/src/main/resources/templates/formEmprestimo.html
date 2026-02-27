@@ -1,38 +1,16 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
-<body>
-
-<div th:replace="layout :: layout">
-
-    <div th:fragment="conteudo">
-
-        <h2>Novo Empréstimo</h2>
-
-        <form th:action="@{/emprestimos}" th:object="${emprestimo}" method="post">
-
-            <div class="mb-3">
-                <label>Livro</label>
-                <select th:field="*{livro}" class="form-select">
-                    <option th:each="livro : ${livros}" th:value="${livro}" th:text="${livro.titulo}"></option>
-                </select>
-            </div>
-
-            <div class="mb-3">
-                <label>Usuário</label>
-                <select th:field="*{usuario}" class="form-select">
-                    <option th:each="usuario : ${usuarios}" th:value="${usuario}" th:text="${usuario.nome}"></option>
-                </select>
-            </div>
-
-            <button type="submit" class="btn btn-success">Salvar</button>
-            <a th:href="@{/emprestimos}" class="btn btn-secondary">Voltar</a>
-
-        </form>
-
+<form th:action="@{/emprestimos}" th:object="${emprestimo}" method="post">
+    <div class="mb-3">
+        <label>Livro</label>
+        <select th:field="*{livro}" class="form-select">
+            <option th:each="livro : ${livros}" th:value="${livro}" th:text="${livro.titulo}"></option>
+        </select>
     </div>
-
-</div>
-
-</body>
-</html>
+    <div class="mb-3">
+        <label>Usuário</label>
+        <select th:field="*{usuario}" class="form-select">
+            <option th:each="usuario : ${usuarios}" th:value="${usuario}" th:text="${usuario.nome}"></option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-success">Salvar</button>
+    <a th:href="@{/emprestimos}" class="btn btn-secondary">Voltar</a>
+</form>

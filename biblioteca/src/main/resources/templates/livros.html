@@ -1,14 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<body>
-
 <div th:replace="layout :: layout">
-
     <div th:fragment="conteudo">
-
         <h2>Lista de Livros</h2>
-
         <a th:href="@{/livros/novo}" class="btn btn-primary mb-3">Novo Livro</a>
 
         <table class="table table-striped table-bordered">
@@ -18,6 +13,7 @@
                 <th>Título</th>
                 <th>Autor</th>
                 <th>Disponível</th>
+                <th>Ações</th>
             </tr>
             </thead>
             <tbody>
@@ -29,13 +25,13 @@
                     <span th:if="${livro.disponivel}" class="badge bg-success">Sim</span>
                     <span th:unless="${livro.disponivel}" class="badge bg-danger">Não</span>
                 </td>
+                <td>
+                    <a th:href="@{/livros/{id}/editar(id=${livro.id})}" class="btn btn-warning btn-sm">Editar</a>
+                    <a th:href="@{/livros/{id}/delete(id=${livro.id})}" class="btn btn-danger btn-sm">Excluir</a>
+                </td>
             </tr>
             </tbody>
         </table>
-
     </div>
-
 </div>
-
-</body>
 </html>

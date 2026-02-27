@@ -1,34 +1,17 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
-<body>
-
-<div th:replace="layout :: layout">
-
-    <div th:fragment="conteudo">
-
-        <h2>Novo Livro</h2>
-
-        <form th:action="@{/livros}" th:object="${livro}" method="post">
-
-            <div class="mb-3">
-                <label>Título</label>
-                <input type="text" th:field="*{titulo}" class="form-control"/>
-            </div>
-
-            <div class="mb-3">
-                <label>Autor</label>
-                <input type="text" th:field="*{autor}" class="form-control"/>
-            </div>
-
-            <button type="submit" class="btn btn-success">Salvar</button>
-            <a th:href="@{/livros}" class="btn btn-secondary">Voltar</a>
-
-        </form>
-
+<form th:action="@{${livro.id} != null ? '/livros/' + ${livro.id} + '/editar' : '/livros'}"
+      th:object="${livro}" method="post">
+    <div class="mb-3">
+        <label>Título</label>
+        <input type="text" th:field="*{titulo}" class="form-control"/>
     </div>
-
-</div>
-
-</body>
-</html>
+    <div class="mb-3">
+        <label>Autor</label>
+        <input type="text" th:field="*{autor}" class="form-control"/>
+    </div>
+    <div class="mb-3 form-check">
+        <input type="checkbox" th:field="*{disponivel}" class="form-check-input"/>
+        <label class="form-check-label">Disponível</label>
+    </div>
+    <button type="submit" class="btn btn-success">Salvar</button>
+    <a th:href="@{/livros}" class="btn btn-secondary">Voltar</a>
+</form>
