@@ -1,16 +1,51 @@
-<form th:action="@{/emprestimos}" th:object="${emprestimo}" method="post">
-    <div class="mb-3">
-        <label>Livro</label>
-        <select th:field="*{livro}" class="form-select">
-            <option th:each="livro : ${livros}" th:value="${livro}" th:text="${livro.titulo}"></option>
-        </select>
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="layout :: layout">
+    <div th:fragment="conteudo">
+
+        <h2>Novo Empréstimo</h2>
+
+        <form th:action="@{/emprestimos}" th:object="${emprestimo}" method="post">
+
+            <!-- LIVRO -->
+            <div class="mb-3">
+                <label class="form-label">Livro</label>
+                <select class="form-select" th:field="*{livro.id}" required>
+                    <option value="">Selecione um livro</option>
+                    <option th:each="livro : ${livros}"
+                            th:value="${livro.id}"
+                            th:text="${livro.titulo}">
+                    </option>
+                </select>
+            </div>
+
+            <!-- USUÁRIO -->
+            
+
+            <!-- DATA -->
+            <div class="mb-3">
+                <label class="form-label">Data do Empréstimo</label>
+                <input type="date" class="form-control"
+                       th:field="*{dataEmprestimo}" required>
+            </div>
+
+            <!-- ATIVO -->
+            <div class="form-check mb-3">
+                <input class="form-check-input"
+                       type="checkbox"
+                       th:field="*{ativo}">
+                <label class="form-check-label">
+                    Empréstimo ativo
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-success">Salvar</button>
+            <a th:href="@{/emprestimos}" class="btn btn-secondary">Cancelar</a>
+
+        </form>
+
     </div>
-    <div class="mb-3">
-        <label>Usuário</label>
-        <select th:field="*{usuario}" class="form-select">
-            <option th:each="usuario : ${usuarios}" th:value="${usuario}" th:text="${usuario.nome}"></option>
-        </select>
-    </div>
-    <button type="submit" class="btn btn-success">Salvar</button>
-    <a th:href="@{/emprestimos}" class="btn btn-secondary">Voltar</a>
-</form>
+</div>
+
+</html>

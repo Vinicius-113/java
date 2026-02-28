@@ -1,52 +1,59 @@
 package com.biblioteca.app.controller;
 
-import com.biblioteca.app.model.Emprestimo;
-import com.biblioteca.app.repository.EmprestimoRepository;
+import com.biblioteca.app.model.Livro;
 import com.biblioteca.app.repository.LivroRepository;
-import com.biblioteca.app.repository.UsuarioRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/emprestimos")
-public class EmprestimoController {
+@RequestMapping("/livros")
+public class LivroController {
 
-    private final EmprestimoRepository emprestimoRepo;
-    private final LivroRepository livroRepo;
-    private final UsuarioRepository usuarioRepo;
+    private final LivroRepository repository;
 
-    public EmprestimoController(EmprestimoRepository emprestimoRepo,
-                                LivroRepository livroRepo,
-                                UsuarioRepository usuarioRepo) {
-        this.emprestimoRepo = emprestimoRepo;
-        this.livroRepo = livroRepo;
-        this.usuarioRepo = usuarioRepo;
+    public LivroController(LivroRepository repository) {
+        this.repository = repository;
     }
 
     @GetMapping
     public String listar(Model model) {
-        model.addAttribute("emprestimos", emprestimoRepo.findAll());
-        return "emprestimos";
+        model.addAttribute("livros", repository.findAll());
+        return "livros";
     }
 
     @GetMapping("/novo")
     public String novo(Model model) {
-        model.addAttribute("emprestimo", new Emprestimo());
-        model.addAttribute("livros", livroRepo.findAll());
-        model.addAttribute("usuarios", usuarioRepo.findAll());
-        return "formEmprestimos";
+        model.addAttribute("livro", new Livro());
+        return "formLivro";
     }
 
     @PostMapping
-    public String salvar(@ModelAttribute Emprestimo emprestimo) {
-        emprestimoRepo.save(emprestimo);
-        return "redirect:/emprestimos";
+    public String salvar(@ModelAttribute Livro livro) {
+        repository.save(livro);
+        return "redirect:/livros";
+    }
+
+    @GetMapping("/{id}/editar")
+    public String editar(@PathVariable Long id, Model model) {
+        Livro livro = repository.findById(id).orElseThrow();
+        model.addAttribute("livro", livro);
+        return "formLivro";
+    }
+
+    @PostMapping("/{id}/editar")
+    public String atualizar(@PathVariable Long id, @ModelAttribute Livro livroAtualizado) {
+        Livro livro = repository.findById(id).orElseThrow();
+        livro.setTitulo(livroAtualizado.getTitulo());
+        livro.setAutor(livroAtualizado.getAutor());
+        livro.setDisponivel(livroAtualizado.getDisponivel());
+        repository.save(livro);
+        return "redirect:/livros";
     }
 
     @GetMapping("/{id}/delete")
     public String deletar(@PathVariable Long id) {
-        emprestimoRepo.deleteById(id);
-        return "redirect:/emprestimos";
+        repository.deleteById(id);
+        return "redirect:/livros";
     }
 }
