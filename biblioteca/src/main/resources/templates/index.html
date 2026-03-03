@@ -1,20 +1,32 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<div id="carouselLivros"
+     class="carousel slide shadow rounded"
+     data-bs-ride="carousel"
+     data-bs-interval="3000">
 
-<body>
+    <div class="carousel-inner">
 
-<div th:replace="layout :: layout">
+        <div class="carousel-item active">
+           <img th:src="@{/img/livro1.jpg}" class="d-block w-25 img-fluid">
+        </div>
 
-    <div th:fragment="conteudo">
+        <div class="carousel-item">
+            <img th:src="@{/img/livro2.jpg}" class="d-block w-25 img-fluid">
+        </div>
 
-        <div class="text-center">
-            <h1>Sistema de Biblioteca</h1>
-            <p class="lead">Projeto Spring Boot + MySQL + Bootstrap</p>
+        <div class="carousel-item">
+            <img th:src="@{/img/livro3.jpg}" class="d-block w-25 img-fluid">
         </div>
 
     </div>
 
-</div>
+    <button class="carousel-control-prev" type="button"
+            data-bs-target="#carouselLivros" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
 
-</body>
-</html>
+    <button class="carousel-control-next" type="button"
+            data-bs-target="#carouselLivros" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+
+</div>

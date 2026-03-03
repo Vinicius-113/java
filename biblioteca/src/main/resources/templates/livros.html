@@ -26,12 +26,29 @@
                     <span th:unless="${livro.disponivel}" class="badge bg-danger">Não</span>
                 </td>
                 <td>
-                    <a th:href="@{/livros/{id}/editar(id=${livro.id})}" class="btn btn-warning btn-sm">Editar</a>
-                    <a th:href="@{/livros/{id}/delete(id=${livro.id})}" class="btn btn-danger btn-sm">Excluir</a>
-                </td>
+    <div class="d-flex justify-content-center gap-2">
+
+        <!-- EDITAR -->
+        <a th:href="@{/livros/{id}/editar(id=${livro.id})}"
+           class="btn btn-dark btn-sm rounded-pill px-3">
+            Editar
+        </a>
+
+        <!-- EXCLUIR COM CONFIRMAÇÃO -->
+        <a th:href="@{/livros/{id}/delete(id=${livro.id})}"
+           class="btn btn-primary btn-sm rounded-pill px-3"
+           onclick="return confirm('Tem certeza que deseja excluir este livro?');">
+            Excluir
+        </a>
+
+    </div>
+</td>
             </tr>
             </tbody>
         </table>
     </div>
 </div>
+
+
+
 </html>
